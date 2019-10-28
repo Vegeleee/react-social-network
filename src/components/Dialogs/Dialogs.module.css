@@ -7,7 +7,7 @@
 	padding: 10px;
 }
 
-.dialogItems .dialog.active {
+.dialogItems .dialog .active {
 	color: gold;
 }
 
