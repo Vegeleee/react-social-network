@@ -4,7 +4,7 @@ import classes from './ProfileInfo.module.css';
 const ProfileInfo = () => {
 	return (
 		<div>
-			<div>
+			<div className={classes.profileHead}>
 				<img src='http://www.sandybeachinternational.com/wp-content/uploads/2018/11/cropped-beach-exotic-holiday-248797.jpg' />
 			</div>
 			<div className={classes.descriptionBlock}>
