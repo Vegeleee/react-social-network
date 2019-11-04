@@ -1,3 +1,5 @@
+import { renderEntireTree } from "../render";
+
 let state = {
 	profilePage: {
 		posts: [
@@ -32,6 +34,8 @@ export let addPost = (postText) => {
 	};
 
 	state.profilePage.posts.push(newPost);
+
+	renderEntireTree(state);
 };
 
 export default state;
