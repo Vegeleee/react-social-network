@@ -31,7 +31,11 @@ let store = {
 		return this._state;
 	},
 
-	addPost() {
+	subscribe(observer) {
+		this._callSubscriber = observer;
+	},
+
+	_addPost() {
 		let newPost = {
 			id: this._state.profilePage.posts.length + 1,
 			message: this._state.profilePage.newPostText,
@@ -43,12 +47,12 @@ let store = {
 		this._callSubscriber(this._state);
 	},
 
-	updateNewPostText(newText) {
+	_updateNewPostText(newText) {
 		this._state.profilePage.newPostText = newText;
 		this._callSubscriber(this._state);
 	},
 
-	sendMessage() {
+	_sendMessage() {
 		let newMessage = {
 			id: this._state.dialogsPage.messages.length + 1,
 			message: this._state.dialogsPage.newMessageText
@@ -59,13 +63,21 @@ let store = {
 		this._callSubscriber(this._state);
 	},
 
-	updateNewMessageText(newText) {
+	_updateNewMessageText(newText) {
 		this._state.dialogsPage.newMessageText = newText;
 		this._callSubscriber(this._state);
 	},
 
-	subscribe(observer) {
-		this._callSubscriber = observer;
+	dispatch(action) {
+		if (action.type == 'ADD-POST') {
+			this._addPost();
+		} else if (action.type == 'UPDATE-NEW-POST-TEXT') {
+			this._updateNewPostText(action.newText);
+		} else if (action.type == 'SEND-MESSAGE') {
+			this._sendMessage();
+		} else if (action.type == 'UPDATE-NEW-MESSAGE-TEXT') {
+			this._updateNewMessageText(action.newText);
+		}
 	}
 };
 
