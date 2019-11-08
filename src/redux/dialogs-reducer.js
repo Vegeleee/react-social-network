@@ -1,6 +1,3 @@
- // ПЕРЕПИСАТЬ В СООТВЕТСТВИИ С КОНЦЕПЦИЕЙ НЕИЗМЕНЯЕМОСТИ ДАННЫХ!!!
- 
- 
 const SEND_MESSAGE = 'SEND-MESSAGE';
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 
@@ -11,14 +8,21 @@ const dialogsReducer = (state, action) => {
 				id: state.messages.length + 1,
 				message: state.newMessageText
 			}
-		
-			state.messages.push(newMessage);
-			state.newMessageText = '';
-			return state;
+
+			let messages = state.messages;
+			messages.push(newMessage);
+
+			return ({
+				...state,
+				messages,
+				newMessageText: ''
+			});
 		
 		case (UPDATE_NEW_MESSAGE_TEXT):
-			state.newMessageText = action.newText;
-			return state;
+			return ({
+				...state,
+				newMessageText: action.newText
+			});
 
 		default:
 			return state;
