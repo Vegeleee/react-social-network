@@ -3,7 +3,6 @@ import classes from './Dialogs.module.css';
 import {NavLink} from 'react-router-dom';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
-import { sendMessageActionCreator, updateNewMessageTextActionCreator } from '../../redux/dialogs-reducer';
 
 
 const Dialogs = (props) => {
@@ -16,13 +15,13 @@ const Dialogs = (props) => {
 
 	let newMessageElement = React.createRef();
 
-	let sendMessage = () => {
-		props.dispatch(sendMessageActionCreator());
+	let onSendMessage = () => {
+		props.sendMessage();
 	};
 
 	let onNewMessageTextChange = () => {
 		let newText = newMessageElement.current.value;
-		props.dispatch(updateNewMessageTextActionCreator(newText));
+		props.updateNewMessageText(newText);
 	};
 
 	return (
@@ -42,7 +41,7 @@ const Dialogs = (props) => {
 											placeholder="Enter your message" />
 					</div>
 					<div>
-						<button onClick={sendMessage}>Send</button>
+						<button onClick={onSendMessage}>Send</button>
 					</div>
 				</div>
 			</div>

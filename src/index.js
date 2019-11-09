@@ -6,18 +6,18 @@ import './index.css';
 import App from './App';
 import {BrowserRouter} from 'react-router-dom';
 
-export let renderEntireTree = (state) => {
+export let renderEntireTree = (store) => {
 	ReactDOM.render(<BrowserRouter>
 		<App
-			state={state}
+			store={store}
 			dispatch={store.dispatch.bind(store)} />
 	</BrowserRouter>, document.getElementById('root'));
 };
 
-renderEntireTree(store.getState());
+renderEntireTree(store);
 
 store.subscribe(() => {
-	renderEntireTree(store.getState()); 
+	renderEntireTree(store);
 });
 
 // If you want your app to work offline and load faster, you can change
