@@ -18,7 +18,7 @@ const profileReducer = (state = initialState, action) => {
 				likesCount: 0
 			};
 			
-			let posts = state.posts;
+			let posts = [...state.posts];
 			posts.push(newPost);
 
 			return ({
