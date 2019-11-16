@@ -4,9 +4,6 @@ const SET_USERS = 'SET_USERS';
 
 const initialState = {
 	users: [
-		{id: 1, followed: false, fullName: 'Danil', status: 'I am a boss!', location: {city: 'Kaliningrad', country: 'Russia'} },
-		{id: 2, followed: true, fullName: 'Vasya', status: 'I am a boss too!', location: {city: 'Moscow', country: 'Russia'} },
-		{id: 3, followed: false, fullName: 'Sasha', status: 'I am a boss!', location: {city: 'Minsk', country: 'Belarus'} }
 	]
 };
 
@@ -56,7 +53,7 @@ export const unfollowAC = userId =>
 	});
 export const setUsersAC = users =>
 	({
-		tupe: SET_USERS,
+		type: SET_USERS,
 		users
 	});
 
