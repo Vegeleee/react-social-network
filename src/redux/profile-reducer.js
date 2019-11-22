@@ -33,7 +33,6 @@ const profileReducer = (state = initialState, action) => {
 			});
 
 		case SET_USER_PROFILE:
-			debugger;
 			return ({
 				...state,
 				profile: action.profile
