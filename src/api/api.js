@@ -8,13 +8,39 @@ const axiosInstance = Axios.create({
 	}
 });
 
-export const usersAPI = {
-	
-	getUsers(currentPage = 1, pageSize = 10) {
-		return axiosInstance.get(`users?page=${currentPage}&count=${pageSize}`, {
-			withCredentials: true
-		})
-		.then(response => response.data)
+export const authAPI = {
+
+	authMe() {
+		return axiosInstance.get('auth/me')
+			.then(response => response.data)
 	}
 };
 
+export const usersAPI = {
+
+	getUsers(currentPage = 1, pageSize = 10) {
+		return axiosInstance.get(`users?page=${currentPage}&count=${pageSize}`)
+			.then(response => response.data)
+	}
+};
+
+export const profileAPI = {
+
+	getProfile(userId) {
+		return axiosInstance.get(`profile/${userId}`)
+			.then(response => response.data)
+	}
+};
+
+export const followAPI = {
+
+	follow(id) {
+		return axiosInstance.post(`follow/${id}`)
+			.then(response => response.data)
+	},
+
+	unfollow(id) {
+		return axiosInstance.delete(`follow/${id}`)
+			.then(response => response.data)
+	}
+};
