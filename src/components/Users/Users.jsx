@@ -2,7 +2,6 @@ import React from 'react';
 import userPhoto from '../../assets/images/user.png';
 import classes from './Users.module.css';
 import {NavLink} from 'react-router-dom';
-import { followAPI } from '../../api/api';
 
 	
 const Users = ({
@@ -13,7 +12,6 @@ const Users = ({
 	follow,
 	unfollow,
 	onPageChanged,
-	toggleFollowingProgress,
 	followingInProgress}) => {
 
 	const pagesCount = Math.ceil(totalUsersCount / pageSize);
@@ -46,26 +44,10 @@ const Users = ({
 								{
 									u.followed ?
 										<button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
-											toggleFollowingProgress(true, u.id);
-
-											followAPI.unfollow(u.id)
-												.then(data => {
-													if (data.resultCode === 0) {
-														unfollow(u.id);
-													}
-													toggleFollowingProgress(false, u.id);
-												})
+											unfollow(u.id);
 										}}>Unfollow</button> :
 										<button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
-											toggleFollowingProgress(true, u.id);
-
-											followAPI.follow(u.id)
-												.then(data => {
-													if (data.resultCode === 0) {
-														follow(u.id);
-													}
-													toggleFollowingProgress(false, u.id);
-												})
+											follow(u.id);
 										}}>Follow</button>
 								}
 							</div>
