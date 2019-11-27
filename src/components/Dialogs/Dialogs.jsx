@@ -1,27 +1,27 @@
 import React from 'react';
 import classes from './Dialogs.module.css';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 
 
-const Dialogs = (props) => {
+const Dialogs = ({dialogsPage, isAuth, sendMessage, updateNewMessageText}) => {
 
-	let dialogsElements = props.dialogsPage.dialogs 
+	let dialogsElements = dialogsPage.dialogs 
 		.map(d => <DialogItem name={d.name} key={d.id} id={d.id} />);
 	
-	let messagesElements = props.dialogsPage.messages
+	let messagesElements = dialogsPage.messages
 		.map(m => <Message message={m.message} key={m.id} id={m.id} />);
 
 	let newMessageElement = React.createRef();
 
 	let onSendMessage = () => {
-		props.sendMessage();
+		sendMessage();
 	};
 
 	let onNewMessageTextChange = () => {
 		let newText = newMessageElement.current.value;
-		props.updateNewMessageText(newText);
+		updateNewMessageText(newText);
 	};
 
 	return (
@@ -37,7 +37,7 @@ const Dialogs = (props) => {
 					<div>
 						<textarea onChange={onNewMessageTextChange}
 											ref={newMessageElement}
-											value={props.dialogsPage.newMessageText}
+											value={dialogsPage.newMessageText}
 											placeholder="Enter your message" />
 					</div>
 					<div>
