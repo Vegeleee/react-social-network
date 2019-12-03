@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
-import AddMessageReduxForm from './AddMessageForm';
+import AddMessageReduxForm from './AddMessageForm/AddMessageForm';
 
 
 const Dialogs = ({ dialogsPage, isAuth, sendMessage }) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
-import NewPostReduxForm from './AddPostForm';
+import NewPostReduxForm from './AddPostForm/AddPostForm';
 
 
 const MyPosts = ({ posts, addPost }) => {
