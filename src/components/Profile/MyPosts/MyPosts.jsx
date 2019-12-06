@@ -4,7 +4,7 @@ import Post from './Post/Post';
 import NewPostReduxForm from './AddPostForm/AddPostForm';
 
 
-const MyPosts = ({ posts, addPost }) => {
+const MyPosts = React.memo(({ posts, addPost }) => {
 
 	const postsElements = posts
 		.map(p => <Post id={p.id} key={p.id} message={p.message} likesCount={p.likesCount} />);
@@ -12,6 +12,7 @@ const MyPosts = ({ posts, addPost }) => {
 	const addNewPost = formData => {
 		addPost(formData.newPostText);
 	};
+	console.log('RENDER');
 
 	return (
 		<div className={classes.postsBlock}>
@@ -24,6 +25,6 @@ const MyPosts = ({ posts, addPost }) => {
 			</div>
 		</div>
 	);
-};
+});
 
 export default MyPosts;
