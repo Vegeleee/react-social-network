@@ -34,12 +34,12 @@ const dialogsReducer = (state = initialState, action) => {
 		default:
 			return state;
 	}
- };
+};
 
- export const sendMessage = (newMessage) =>
+export const sendMessage = (newMessage) =>
 	({
 		type: SEND_MESSAGE,
 		newMessage
 	});
 
- export default dialogsReducer;
+export default dialogsReducer;

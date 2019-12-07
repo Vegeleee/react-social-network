@@ -1,7 +1,7 @@
 import React from 'react';
-import userPhoto from '../../assets/images/user.png';
 import classes from './Users.module.css';
-import {NavLink} from 'react-router-dom';
+import Paginator from '../common/Paginator/Paginator';
+import User from './User';
 
 	
 const Users = ({
@@ -14,55 +14,19 @@ const Users = ({
 	onPageChanged,
 	followingInProgress}) => {
 
-	const pagesCount = Math.ceil(totalUsersCount / pageSize);
-
-	const pages = [];
-	for (let i = 1; i <= pagesCount; i++) {
-		pages.push(i);
-	}
-
 	return (
 		<div>
-			<div>
-				{
-					pages.map(p =>
-						<span
-							className={currentPage === p ? classes.selectedPage : null}
-							onClick={() => { onPageChanged(p) }}>{p}</span>)
-				}
-			</div>
+			<Paginator
+				totalUsersCount={totalUsersCount}
+				pageSize={pageSize}
+				currentPage={currentPage}
+				onPageChanged={onPageChanged} />
 			{
-				users.map(u =>
-					<div key={u.id}>
-						<div>
-							<div>
-								<NavLink to={'/profile/' + u.id }>
-									<img src={u.photos.small ? u.photos.small : userPhoto} className={classes.userPhoto} />
-								</NavLink>
-							</div>
-							<div>
-								{
-									u.followed ?
-										<button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
-											unfollow(u.id);
-										}}>Unfollow</button> :
-										<button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
-											follow(u.id);
-										}}>Follow</button>
-								}
-							</div>
-						</div>
-						<div>
-							<div>{u.name}</div>
-							<div>{u.status}</div>
-						</div>
-						<div>
-							<div>{"u.location.country"}</div>
-							<div>{"u.location.city"}</div>
-						</div>
-					</div>
-
-				)
+				users.map(u => <User key={u.id}
+					user={u}
+					follow={follow}
+					unfollow={unfollow}
+					followingInProgress={followingInProgress} />)
 			}
 		</div>
 	);

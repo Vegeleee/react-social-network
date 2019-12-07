@@ -17,7 +17,7 @@ const appReducer = (state = initialState, action) => {
 		default:
 			return state;
 	}
- };
+};
 
 const setInitializedSuccess = () =>
 	({
@@ -31,4 +31,4 @@ export const initializeApp = () => dispatch => {
 	});
 }
 
- export default appReducer;
+export default appReducer;
