@@ -22,15 +22,6 @@ const ProfileStatus = props => {
 		setStatus(e.target.value);
 	}
 
-	// componentDidUpdate(prevProps) {
-	// 	if (prevProps.status !== this.props.status) {
-	// 		this.setState({
-	// 			status: this.props.status
-	// 		});
-	// 	}
-	// }
-
-
 	return (
 		<div>
 			{!editMode &&
