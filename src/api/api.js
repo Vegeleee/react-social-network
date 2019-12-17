@@ -71,5 +71,10 @@ export const profileAPI = {
 			}
 		})
 			.then(response => response.data);
+	},
+
+	saveProfile(profileData) {
+		return instance.put(`profile`, profileData)
+			.then(response => response.data);
 	}
 };

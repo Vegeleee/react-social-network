@@ -12,7 +12,6 @@ const MyPosts = React.memo(({ posts, addPost }) => {
 	const addNewPost = formData => {
 		addPost(formData.newPostText);
 	};
-	console.log('RENDER');
 
 	return (
 		<div className={classes.postsBlock}>

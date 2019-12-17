@@ -1,5 +1,5 @@
 import { authAPI } from "../api/api";
-import { stopSubmit } from "redux-form"
+import { stopSubmit } from "redux-form";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
@@ -21,7 +21,7 @@ const authReducer = (state = initialState, action) => {
 		default:
 			return state;
 	}
- };
+};
 
 const setAuthUserData = (userId, email, login, isAuth) =>
 	({

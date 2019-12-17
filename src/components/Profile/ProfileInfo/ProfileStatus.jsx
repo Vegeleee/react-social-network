@@ -10,7 +10,9 @@ const ProfileStatus = props => {
 	}, [props.status]);
 
 	const activateEditMode = () => {
-		setEditMode(true);
+		if (props.isOwner) {
+			setEditMode(true);
+		}
 	}
 
 	const deactivateEditMode = () => {
@@ -26,7 +28,7 @@ const ProfileStatus = props => {
 		<div>
 			{!editMode &&
 				<div>
-					<span onDoubleClick={ activateEditMode }>{props.status || "------"}</span>
+					<b>Status: </b><span onDoubleClick={ activateEditMode }>{props.status || "------"}</span>
 				</div>
 			}
 
