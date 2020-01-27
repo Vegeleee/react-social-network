@@ -5,37 +5,37 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: 10px 0;
-}
 
-.logo {
-	width: 70px;
-}
-
-.header .loginBlock {
-
-	color: $color-white;
-	font-weight: bold;
-}
-
-.header .loginBlock .login{
-	margin-bottom: 10px;
-	text-align: center;
-}
-
-.header .loginBlock button{
-	@include button-main;
-
-	&:hover {
-		text-decoration: underline;
+	.logo {
+		width: 70px;
 	}
-}
 
-.header .loginBlock a {
-	@include button-main;
+	.loginBlock {
+		color: $color-white;
+		font-weight: bold;
+	
 
-	display: inline-block;
+		.login{
+			margin-bottom: 10px;
+			text-align: center;
+		}
 
-	&:hover {
-		text-decoration: underline;
+		button{
+			@include button-main;
+		
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+
+		a {
+			@include button-main;
+		
+			display: inline-block;
+		
+			&:hover {
+				text-decoration: underline;
+			}
+		}
 	}
 }
