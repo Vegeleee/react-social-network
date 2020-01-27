@@ -1,0 +1,25 @@
+.nav {
+	padding: 20px;
+
+	&List{
+		list-style-type: none;
+
+		&Item + li {
+			margin-top: 10px;
+		}
+
+		&Item a{
+			color: #333;
+			text-decoration: none;
+
+			&:hover,
+			&.active {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+.item a.active {
+	color: gold;
+}
