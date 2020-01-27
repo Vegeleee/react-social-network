@@ -1,0 +1,27 @@
+@import './stylesheets/common.scss';
+
+.app-wrapper {
+	display: flex;
+	flex-direction: column;
+
+	&-header {
+		background-color: #009dff;
+	}
+
+	&-main {
+		.inner {
+			display: flex;
+		}
+	}
+	
+	&-navbar {
+		background-color: burlywood;
+		max-height: 100%;
+		flex-basis: 20%;
+	}
+
+	&-content {
+		flex-grow: 1;
+		background-color: cornflowerblue;
+	}
+}

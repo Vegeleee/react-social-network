@@ -32,7 +32,7 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, savePhoto, savePr
 	return (
 		<div>
 			<div className={classes.profileHead}>
-				<img src='http://www.sandybeachinternational.com/wp-content/uploads/2018/11/cropped-beach-exotic-holiday-248797.jpg' />
+				{/* <img src='http://www.sandybeachinternational.com/wp-content/uploads/2018/11/cropped-beach-exotic-holiday-248797.jpg' /> */}
 			</div>
 			<div className={classes.descriptionBlock}>
 				<img src={profile.photos.large || userPhoto} className={classes.mainPhoto} />

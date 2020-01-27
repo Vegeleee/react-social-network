@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import './App.css';
+import './App.scss';
 import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import Music from './components/Music/Music';
@@ -40,32 +40,56 @@ class App extends React.Component {
 
 		return (
 			<div className='app-wrapper'>
-				<HeaderContainer />
-				<Navbar />
-				<div className='app-wrapper-content'>
-					<Switch>
-						<Redirect exact from='/' to='/profile' />
 
-						<Route path='/profile/:userId?'
-							render={() => <ProfileContainer />} />
-
-						<Route path='/dialogs'
-							render={withSuspense(DialogsContainer)} />
-
-						<Route path='/users'
-							render={() => <UsersContainer />} />
-
-						<Route path='/news' component={News} />
-						<Route path='/music' component={Music} />
-						<Route path='/settings' component={Settings} />
-
-						<Route path='/login'
-							render={() => <Login />} />
-
-						<Route path='*'
-							render={() => <div>404 NOT FOUND</div>} />
-					</Switch>
+				{/* header */}
+				<div className='app-wrapper-header'>
+					<div className='inner'>
+						<HeaderContainer />
+					</div>
 				</div>
+				{/* / header */}
+
+				{/* main */}
+				<div className='app-wrapper-main'>
+					<div className='inner'>
+
+						{/* navbar */}
+						<div className='app-wrapper-navbar'>
+							<Navbar />
+						</div>
+						{/* / navbar */}
+
+						{/* content */}
+						<div className='app-wrapper-content'>
+							<Switch>
+								<Redirect exact from='/' to='/profile' />
+
+								<Route path='/profile/:userId?'
+									render={() => <ProfileContainer />} />
+
+								<Route path='/dialogs'
+									render={withSuspense(DialogsContainer)} />
+
+								<Route path='/users'
+									render={() => <UsersContainer />} />
+
+								<Route path='/news' component={News} />
+								<Route path='/music' component={Music} />
+								<Route path='/settings' component={Settings} />
+
+								<Route path='/login'
+									render={() => <Login />} />
+
+								<Route path='*'
+									render={() => <div>404 NOT FOUND</div>} />
+							</Switch>
+						</div>
+						{/* / content */}
+
+					</div>
+				</div>
+				{/* / main */}
+
 			</div>
 		);
 	}
