@@ -1,0 +1,44 @@
+@import './../../../stylesheets/common.scss';
+
+.descBlock {
+	display: flex;
+	padding: 20px;
+
+	&LeftCol {
+		display: flex;
+		flex-direction: column;
+
+		.mainPhoto {
+			border-radius: 50%;
+			max-width: 200px;
+			margin-bottom: 20px;
+		}
+	}
+
+	&RightCol {
+		margin-left: 60px;
+
+		.head {
+			margin-bottom: 40px;
+
+			.name {
+				margin-bottom: 5px;
+			}
+		}
+	}
+}
+
+.profileData {
+	&Item {
+		margin-bottom: 10px;
+	}
+
+	button {
+		@include button-main;
+	}
+}
+
+.contact {
+	margin-bottom: 10px;
+	padding-left: 15px;
+}

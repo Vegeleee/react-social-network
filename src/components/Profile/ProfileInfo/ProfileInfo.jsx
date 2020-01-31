@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import classes from './ProfileInfo.module.css';
+import classes from './ProfileInfo.module.scss';
 import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatus from './ProfileStatus';
 import userPhoto from '../../../assets/images/user.png';
@@ -31,19 +31,21 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, savePhoto, savePr
 
 	return (
 		<div>
-			<div className={classes.profileHead}>
-				{/* <img src='http://www.sandybeachinternational.com/wp-content/uploads/2018/11/cropped-beach-exotic-holiday-248797.jpg' /> */}
-			</div>
-			<div className={classes.descriptionBlock}>
-				<img src={profile.photos.large || userPhoto} className={classes.mainPhoto} />
-				{isOwner && <input type="file" onChange={onMainPhotoSelected} />}
+			<div className={classes.descBlock}>
+				<div className={classes.descBlockLeftCol}>
+					<img src={profile.photos.large || userPhoto} className={classes.mainPhoto} />
+					{isOwner && <input type="file" onChange={onMainPhotoSelected} />}
+				</div>
+				<div className={classes.descBlockRightCol}>
+					<div className={classes.head}>
+						<h1 className={classes.name}>{profile.fullName}</h1>
+						<ProfileStatus status={status} updateStatus={updateStatus} isOwner={isOwner} />
+					</div>
 
-				{editMode ?
-					<ProfileDataForm profile={profile} initialValues={profile} onSubmit={onSubmit} /> :
-					<ProfileData profile={profile} isOwner={isOwner} toEditMode={toEditMode} />}
-
-
-				<ProfileStatus status={status} updateStatus={updateStatus} isOwner={isOwner} />
+					{editMode ?
+						<ProfileDataForm profile={profile} initialValues={profile} onSubmit={onSubmit} /> :
+						<ProfileData profile={profile} isOwner={isOwner} toEditMode={toEditMode} />}
+				</div>
 			</div>
 		</div>
 	);
@@ -51,27 +53,27 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, savePhoto, savePr
 
 const ProfileData = ({ profile, isOwner, toEditMode }) => {
 	return (
-		<div>
-			{isOwner && <div><button onClick={toEditMode}>Edit</button></div>}
-			<div>
+		<div className={classes.profileData}>
+			<div className={classes.profileDataItem}>
 				<b>Full name: </b>{profile.fullName}
 			</div>
-			<div>
+			<div className={classes.profileDataItem}>
 				<b>Looking for a job: </b>{profile.lookingForAJob ? 'yes' : 'no'}
 			</div>
 			{profile.lookingForAJob &&
-				<div>
+				<div className={classes.profileDataItem}>
 					<b>My skills: </b>{profile.lookingForAJobDescription}
 				</div>
 			}
-			<div>
+			<div className={classes.profileDataItem}>
 				<div><b>About me: </b>{profile.aboutMe}</div>
 			</div>
-			<div>
+			<div className={classes.profileDataItem}>
 				<b>Contacts: </b>{Object.keys(profile.contacts).map(key => {
 					return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]} />
 				})}
 			</div>
+			{isOwner && <div><button onClick={toEditMode}>Edit</button></div>}
 		</div>
 	);
 }
