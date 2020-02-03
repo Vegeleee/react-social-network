@@ -1,0 +1,17 @@
+@import './../../../stylesheets/common.scss';
+
+.postsBlock {
+	padding: 10px;
+	border-top: 1px solid $color-main;
+
+	textarea {
+		width: 50%;
+		height: 70px;
+		margin-bottom: 20px;
+	}
+
+	.posts {
+		margin-top: 10px;
+	}
+
+}
