@@ -7,25 +7,24 @@ import style from './../../common/FormsControls/FormsControls.module.css'
 
 const ProfileDataForm = ({ profile, handleSubmit, error }) => {
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit} className={classes.profileData}>
 			{error && <div className={style.formSummaryError}>
 				{error}
 			</div>
 			}
-			<div><button>Save</button></div>
-			<div>
+			<div className={classes.profileDataItem}>
 				<b>Full name: </b> {createField('Full name', 'fullName', [], Input, {type: 'text'})}
 			</div>
-			<div>
+			<div className={classes.profileDataItem}>
 				<b>Looking for a job: </b> {createField('', 'lookingForAJob', [], Input, { type: 'checkbox' })}
 			</div>
-			<div>
+			<div className={classes.profileDataItem}>
 				<b>My skills: </b> {createField('Description', 'lookingForAJobDescription', [], Textarea)}
 			</div>
-			<div>
+			<div className={classes.profileDataItem}>
 				<b>About me: </b> {createField('About me', 'aboutMe', [], Textarea)}
 			</div>
-			{<div>
+			{<div className={classes.profileDataItem}>
 				<b>Contacts: </b>{Object.keys(profile.contacts).map(key => {
 					return (
 						<div key={key} className={classes.contact}>
@@ -34,6 +33,7 @@ const ProfileDataForm = ({ profile, handleSubmit, error }) => {
 					);
 				})}
 			</div>}
+			<div><button>Save</button></div>
 		</form>
 	);
 }

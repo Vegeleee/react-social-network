@@ -23,6 +23,10 @@ li {
 	margin: 0;
 }
 
+button {
+	@include button-main;
+}
+
 .inner {
 	max-width: 1180px;
 	margin: 0 auto;

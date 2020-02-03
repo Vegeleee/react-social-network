@@ -32,9 +32,15 @@
 	&Item {
 		margin-bottom: 10px;
 	}
+	
+	input,
+	textarea {
+		width: 250px;
+	}
 
-	button {
-		@include button-main;
+	textarea {
+		height: 100px;
+		resize: none;
 	}
 }
 
