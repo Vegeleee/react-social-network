@@ -1,12 +1,15 @@
 import React from 'react';
-import classes from './Post.module.css';
+import classes from './Post.module.scss';
+import userPhoto from './../../../../assets/images/user.png'
 
 const Post = (props) => {
 	return (
 		<div className={classes.item}>
-			<img src="https://hornews.com/images/news_large/c1d4b2b8ec608ea72764c5678816d5c9.jpg" />
-			{props.message}
-			<div>
+			<div className={classes.wrapper}>
+				<img src={userPhoto} />
+				{props.message}
+			</div>
+			<div className={classes.likes}>
 				<span>like</span> <span>{props.likesCount}</span>
 			</div>
 		</div>

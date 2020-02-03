@@ -1,8 +1,7 @@
 @import './../../../stylesheets/common.scss';
 
 .postsBlock {
-	padding: 10px;
-	border-top: 1px solid $color-main;
+	padding: 20px;
 
 	textarea {
 		width: 50%;
@@ -11,7 +10,7 @@
 	}
 
 	.posts {
-		margin-top: 10px;
+		margin-top: 50px;
 	}
 
 }
