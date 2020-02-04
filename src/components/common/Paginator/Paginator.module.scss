@@ -1,0 +1,46 @@
+@import './../../../stylesheets/common.scss';
+
+@mixin selected-page {
+	font-weight: bold;
+	color: $color-white;
+	background-color: $color-main;
+}
+
+.paginator {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&PrevButton {
+		margin-right: 20px;
+	}
+
+	&NextButton {
+		margin-left: 20px;
+	}
+
+	&PageNumber {
+		display: inline-block;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		width: 30px;
+		border: 1px solid $color-main;
+		border-radius: 5px;
+		text-align: center;
+		vertical-align: middle;
+		cursor: pointer;
+
+		& + .paginatorPageNumber {
+			margin-left: 10px;
+		}
+
+		&:hover {
+			@include selected-page;
+		}
+	}
+
+	&SelectedPage {
+		@include selected-page;
+	}
+
+}
