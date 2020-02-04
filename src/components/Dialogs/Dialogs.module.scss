@@ -1,0 +1,17 @@
+.dialogs {
+	display: flex;
+	height: 100%;
+
+	&Items {
+		padding: 10px;
+		flex-basis: 25%;
+	}
+
+	&Messages {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		justify-content: space-between;
+		padding: 10px;
+	}
+}

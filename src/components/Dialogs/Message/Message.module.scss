@@ -1,0 +1,15 @@
+@import './../../../stylesheets/common.scss';
+
+.message {
+	& + .message {
+		margin-top: 10px;
+	}
+	
+	&Text {
+		display: inline-block;
+		border-radius: 5px;
+		padding: 5px;
+		color: $color-white;
+		background-color: $color-main;
+	}
+}

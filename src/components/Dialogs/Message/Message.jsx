@@ -1,9 +1,11 @@
 import React from 'react';
-import classes from './Message.module.css';
+import classes from './Message.module.scss';
 
 const Message = (props) => {
 	return (
-		<div className={classes.message}>{props.message}</div>
+		<div className={classes.message}>
+			<span className={classes.messageText}>{props.message}</span>
+		</div>
 	);
 };
 

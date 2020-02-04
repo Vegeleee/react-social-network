@@ -1,0 +1,16 @@
+@import './../../../stylesheets/common.scss';
+
+.dialog {
+	padding-top: 5px;
+	padding-bottom: 5px;
+
+	a {
+		color: $color-text;
+		text-decoration: none;
+
+		&.active {
+			text-decoration: underline;
+		}
+	}
+}
+
