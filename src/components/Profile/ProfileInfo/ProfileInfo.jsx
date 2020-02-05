@@ -10,7 +10,11 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, savePhoto, savePr
 	const [editMode, setEditMode] = useState(false);
 
 	if (!profile) {
-		return <Preloader />
+		return (
+			<div className={classes.preloadWrapper}>
+				<Preloader />
+			</div>
+		);
 	}
 
 	const onMainPhotoSelected = (e) => {
