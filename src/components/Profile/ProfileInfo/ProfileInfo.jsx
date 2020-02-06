@@ -59,10 +59,7 @@ const ProfileData = ({ profile, isOwner, toEditMode }) => {
 	return (
 		<div className={classes.profileData}>
 			<div className={classes.profileDataItem}>
-				<b>Full name: </b>{profile.fullName}
-			</div>
-			<div className={classes.profileDataItem}>
-				<b>Looking for a job: </b>{profile.lookingForAJob ? 'yes' : 'no'}
+				<b>Looking for a job: </b>{profile.lookingForAJob ? 'Yes' : 'No'}
 			</div>
 			{profile.lookingForAJob &&
 				<div className={classes.profileDataItem}>
