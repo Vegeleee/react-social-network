@@ -3,8 +3,9 @@
 	border: 1px solid red;
 }
 
-.formControl.error  span {
+.formControl.error .errorText {
 	color: red;
+	margin-bottom: 20px;
 }
 
 .formSummaryError {

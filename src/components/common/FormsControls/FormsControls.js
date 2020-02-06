@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './FormsControls.module.css';
+import classes from './FormsControls.module.scss';
 import { Field } from 'redux-form';
 
 
@@ -11,7 +11,7 @@ const FormControl = ({ meta, children }) => {
 			<div>
 				{children}
 			</div>
-			{hasError && <span>{meta.error}</span>}
+			{hasError && <div className={classes.errorText}>{meta.error}</div>}
 		</div>
 	);
 };
