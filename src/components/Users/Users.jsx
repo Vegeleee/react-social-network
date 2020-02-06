@@ -1,9 +1,9 @@
 import React from 'react';
-import classes from './Users.module.css';
+import classes from './Users.module.scss';
 import Paginator from '../common/Paginator/Paginator';
 import User from './User';
 
-	
+
 const Users = ({
 	totalUsersCount,
 	pageSize,
@@ -12,22 +12,24 @@ const Users = ({
 	follow,
 	unfollow,
 	onPageChanged,
-	followingInProgress}) => {
+	followingInProgress }) => {
 
 	return (
-		<div>
+		<div className={classes.usersContainer}>
 			<Paginator
 				totalItemsCount={totalUsersCount}
 				pageSize={pageSize}
 				currentPage={currentPage}
 				onPageChanged={onPageChanged} />
-			{
-				users.map(u => <User key={u.id}
-					user={u}
-					follow={follow}
-					unfollow={unfollow}
-					followingInProgress={followingInProgress} />)
-			}
+			<div className={classes.usersWrapper}>
+				{
+					users.map(u => <User key={u.id}
+						user={u}
+						follow={follow}
+						unfollow={unfollow}
+						followingInProgress={followingInProgress} />)
+				}
+			</div>
 		</div>
 	);
 }

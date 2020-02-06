@@ -1,6 +1,6 @@
 import React from 'react';
 import userPhoto from '../../assets/images/user.png';
-import classes from './User.module.css';
+import classes from './User.module.scss';
 import {NavLink} from 'react-router-dom';
 
 	
@@ -11,14 +11,14 @@ const User = ({
 	followingInProgress}) => {
 
 	return (
-					<div>
+					<div className={classes.user}>
 						<div>
-							<div>
+							<div className={classes.userPhoto}>
 								<NavLink to={'/profile/' + user.id }>
-									<img src={user.photos.small ? user.photos.small : userPhoto} className={classes.userPhoto} />
+									<img src={user.photos.small ? user.photos.small : userPhoto} />
 								</NavLink>
 							</div>
-							<div>
+							<div className={classes.userFollowButton}>
 								{
 									user.followed ?
 										<button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
@@ -30,11 +30,11 @@ const User = ({
 								}
 							</div>
 						</div>
-						<div>
-							<div>{user.name}</div>
+						<div className={classes.userInfo}>
+							<div className={classes.userInfoName}>{user.name}</div>
 							<div>{user.status}</div>
 						</div>
-						<div>
+						<div className={classes.userLocation}>
 							<div>{"user.location.country"}</div>
 							<div>{"user.location.city"}</div>
 						</div>

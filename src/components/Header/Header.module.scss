@@ -22,20 +22,12 @@
 
 		button{
 			@include button-main;
-		
-			&:hover {
-				text-decoration: underline;
-			}
 		}
 
 		a {
 			@include button-main;
 		
 			display: inline-block;
-		
-			&:hover {
-				text-decoration: underline;
-			}
 		}
 	}
 }

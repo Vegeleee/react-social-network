@@ -1,0 +1,28 @@
+.user {
+	flex-basis: 25%;
+	text-align: center;
+	padding: 20px;
+
+	&Photo {
+		margin-bottom: 10px;
+
+		img {
+			width: 100px;
+			height: 100px;
+		}
+	}
+
+	&FollowButton {
+		margin-bottom: 10px;
+	}
+
+	&Info {
+		margin-bottom: 10px;
+
+		&Name {
+			font-weight: bold;
+		}
+	}
+}
+
+

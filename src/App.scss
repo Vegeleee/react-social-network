@@ -69,6 +69,7 @@ textarea {
 	&-content {
 		min-height: 100%;
 		flex-grow: 1;
+		flex-basis: 80%;
 		border-right: 1px $color-main solid;
 		border-left: 1px $color-main solid;
 	}

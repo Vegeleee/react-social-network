@@ -9,6 +9,10 @@
 	font-size: 16px;
 	font-weight: bold;
 	cursor: pointer;
+
+	&:hover {
+		text-decoration: underline;
+	}
 }
 // === / mixins ===
 
