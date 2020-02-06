@@ -6,31 +6,32 @@ import { connect } from 'react-redux';
 import { login } from '../../redux/auth-reducer';
 import { Redirect } from 'react-router-dom';
 import style from './../common/FormsControls/FormsControls.module.css'
+import classes from './Login.module.scss';
 
-const LoginForm = ({handleSubmit, error, captchaUrl}) => {
+const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
 	return (
-		<form onSubmit={handleSubmit}>
-			{createField('Email', 'email', [required], Input, {type: 'text'})}
-			{createField('Password', 'password', [required], Input, {type: 'password'})}
-			{createField(null, 'rememberMe', [], Input, {type: 'checkbox'}, 'Remember me')}
-			
+		<form onSubmit={handleSubmit} className={classes.loginForm}>
+			{createField('Email', 'email', [required], Input, { type: 'text' })}
+			{createField('Password', 'password', [required], Input, { type: 'password' })}
+			{createField(null, 'rememberMe', [], Input, { type: 'checkbox' }, 'Remember me')}
+
 			{captchaUrl && <img src={captchaUrl} />}
-			{captchaUrl && createField('Symbols from image', 'captcha', [required], Input, {type: 'text'})}
+			{captchaUrl && createField('Symbols from image', 'captcha', [required], Input, { type: 'text' })}
 
 			{error && !captchaUrl && <div className={style.formSummaryError}>
 				{error}
 			</div>
 			}
-			<div>
+			<div className={classes.loginFormButton}>
 				<button>Login</button>
 			</div>
 		</form>
 	);
 };
 
-const LoginReduxForm = reduxForm({form: 'login'})(LoginForm);
+const LoginReduxForm = reduxForm({ form: 'login' })(LoginForm);
 
-const Login = ({isAuth, login, captchaUrl}) => {
+const Login = ({ isAuth, login, captchaUrl }) => {
 	const onSubmit = (formData) => {
 		login(formData.email, formData.password, formData.rememberMe, formData.captcha);
 	}
@@ -40,9 +41,11 @@ const Login = ({isAuth, login, captchaUrl}) => {
 	}
 
 	return (
-		<div>
-			<h1>Login</h1>
-			<LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
+		<div className={classes.loginContainer}>
+			<div className={classes.login}>
+				<h1 className={classes.loginTitle}>Login</h1>
+				<LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
+			</div>
 		</div>
 	);
 };
@@ -52,4 +55,4 @@ const mapStateToProps = state => ({
 	isAuth: state.auth.isAuth
 });
 
-export default connect(mapStateToProps, {login})(Login);
+export default connect(mapStateToProps, { login })(Login);
