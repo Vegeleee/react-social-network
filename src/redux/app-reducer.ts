@@ -19,10 +19,17 @@ const appReducer = (state = initialState, action) => {
 	}
 };
 
-const setInitializedSuccess = () =>
-	({
+type InitializedSuccessType = {
+	type: typeof INITIALIZED_SUCCESS;
+}
+
+const setInitializedSuccess = () => {
+	const action: InitializedSuccessType = {
 		type: INITIALIZED_SUCCESS
-	});
+	}
+
+	return action;
+};
 
 export const initializeApp = () => dispatch => {
 	const promise = dispatch(getAuthUserData());
