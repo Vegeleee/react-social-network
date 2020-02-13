@@ -37,7 +37,7 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, savePhoto, savePr
 		<div>
 			<div className={classes.descBlock}>
 				<div className={classes.descBlockLeftCol}>
-					<img src={profile.photos.large || userPhoto} className={classes.mainPhoto} />
+					<img src={profile.photos.large || userPhoto} className={classes.mainPhoto} alt='User' />
 					{isOwner && <input type="file" onChange={onMainPhotoSelected} />}
 				</div>
 				<div className={classes.descBlockRightCol}>

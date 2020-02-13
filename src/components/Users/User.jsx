@@ -15,7 +15,7 @@ const User = ({
 						<div>
 							<div className={classes.userPhoto}>
 								<NavLink to={'/profile/' + user.id }>
-									<img src={user.photos.small ? user.photos.small : userPhoto} />
+									<img src={user.photos.small ? user.photos.small : userPhoto} alt='User' />
 								</NavLink>
 							</div>
 							<div className={classes.userFollowButton}>

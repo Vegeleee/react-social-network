@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import './App.scss';
 import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';

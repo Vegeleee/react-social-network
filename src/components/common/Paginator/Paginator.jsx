@@ -36,6 +36,7 @@ const Paginator = ({
 					.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
 					.map(p =>
 						<span
+							key={p}
 							className={cn(classes.paginatorPageNumber, {
 								[classes.paginatorSelectedPage]: currentPage === p
 							})}

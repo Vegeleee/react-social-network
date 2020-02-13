@@ -5,8 +5,8 @@ import classes from './Preloader.module.scss';
 
 const Preloader = () => {
 	return (
-		<div className={classes.preloader}>
-			<img src={preloader} />
+		<div className={classes.preloader} >
+			<img src={preloader} alt='Preloader' />
 		</div>
 	);
 }

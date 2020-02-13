@@ -6,7 +6,9 @@ const Header = ({isAuth, login, logout}) => {
 	return (
 		<header className={classes.header}>
 			<NavLink to={'/profile'}>
-				<img className={classes.logo} src='https://www.doodle.tj/wp-content/uploads/2019/06/xreact2.png.pagespeed.ic.cFqX4FyKm1.png' />
+				<img className={classes.logo}
+					src='https://www.doodle.tj/wp-content/uploads/2019/06/xreact2.png.pagespeed.ic.cFqX4FyKm1.png'
+					alt='Logo' />
 			</NavLink>
 
 			<div className={classes.loginBlock}>
