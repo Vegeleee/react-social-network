@@ -8,7 +8,8 @@
 		color: $color-text;
 		text-decoration: none;
 
-		&.active {
+		&.active,
+		&:hover {
 			text-decoration: underline;
 		}
 	}
