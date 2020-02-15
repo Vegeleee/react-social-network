@@ -4,7 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import { BrowserRouter, Route, withRouter, Switch, Redirect } from 'react-router-dom';
+import { HashRouter, Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -110,11 +110,11 @@ const AppWithRouter = compose(
 
 const MainApp = props => {
 	return (
-		<BrowserRouter>
+		<HashRouter>
 			<Provider store={store}>
 				<AppWithRouter />
 			</Provider>
-		</BrowserRouter>
+		</HashRouter>
 	);
 };
 
