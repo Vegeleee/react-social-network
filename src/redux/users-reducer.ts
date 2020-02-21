@@ -19,7 +19,7 @@ const initialState = {
 	followingInProgress: [] as Array<number> // array of users ids
 }
 
-type initialStateType = typeof initialState
+export type initialStateType = typeof initialState
 
 const usersReducer = (state = initialState, action: any): initialStateType => {
 	switch (action.type) {
