@@ -6,7 +6,7 @@ import Preloader from '../common/Preloader/Preloader'
 import withAuthRedirect from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
 import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/users-selectors'
-import { userType } from '../../types/types'
+import { UserType } from '../../types/types'
 import { AppStateType } from '../../redux/store'
 
 
@@ -15,7 +15,7 @@ type MapStatePropsType = {
 	pageSize: number
 	totalUsersCount: number
 	isFetching: boolean
-	users: Array<userType>
+	users: Array<UserType>
 	followingInProgress: Array<number>
 }
 

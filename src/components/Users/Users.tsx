@@ -2,14 +2,14 @@ import React from 'react'
 import classes from './Users.module.scss'
 import Paginator from '../common/Paginator/Paginator'
 import User from './User'
-import { userType } from '../../types/types'
+import { UserType } from '../../types/types'
 
 
 type PropsType = {
 	totalUsersCount: number
 	pageSize: number
 	currentPage: number
-	users: Array<userType>
+	users: Array<UserType>
 	follow: (userId: number) => void
 	unfollow: (userId: number) => void
 	onPageChanged: (pageNumber: number) => void

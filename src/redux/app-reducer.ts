@@ -6,9 +6,9 @@ const initialState = {
 	initialized: false
 }
 
-type initialStateType = typeof initialState
+type InitialStateType = typeof initialState
 
-const appReducer = (state = initialState, action: InitializedSuccessActionType): initialStateType => {
+const appReducer = (state = initialState, action: InitializedSuccessActionType): InitialStateType => {
 	switch (action.type) {
 		case INITIALIZED_SUCCESS:
 			return ({
@@ -19,7 +19,7 @@ const appReducer = (state = initialState, action: InitializedSuccessActionType):
 		default:
 			return state
 	}
-};
+}
 
 type InitializedSuccessActionType = {
 	type: typeof INITIALIZED_SUCCESS
