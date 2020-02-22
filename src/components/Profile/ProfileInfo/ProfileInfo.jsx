@@ -1,36 +1,36 @@
-import React, { useState } from 'react';
-import classes from './ProfileInfo.module.scss';
-import Preloader from '../../common/Preloader/Preloader';
-import ProfileStatus from './ProfileStatus';
-import userPhoto from '../../../assets/images/user.png';
-import ProfileDataForm from './ProfileDataForm';
+import React, { useState } from 'react'
+import classes from './ProfileInfo.module.scss'
+import Preloader from '../../common/Preloader/Preloader'
+import ProfileStatus from './ProfileStatus'
+import userPhoto from '../../../assets/images/user.png'
+import ProfileDataForm from './ProfileDataForm'
 
 const ProfileInfo = ({ profile, status, updateStatus, isOwner, savePhoto, saveProfile }) => {
 
-	const [editMode, setEditMode] = useState(false);
+	const [editMode, setEditMode] = useState(false)
 
 	if (!profile) {
 		return (
 			<div className={classes.preloadWrapper}>
 				<Preloader />
 			</div>
-		);
+		)
 	}
 
 	const onMainPhotoSelected = (e) => {
 		if (e.target.files.length) {
-			savePhoto(e.target.files[0]);
+			savePhoto(e.target.files[0])
 		}
 	}
 
 	const toEditMode = () => {
-		setEditMode(true);
+		setEditMode(true)
 	}
 
 	const onSubmit = (formData) => {
 		saveProfile(formData).then(() => {
-			setEditMode(false);
-		});
+			setEditMode(false)
+		})
 	}
 
 	return (
@@ -84,7 +84,7 @@ const Contact = ({ contactTitle, contactValue }) => {
 		<div className={classes.contact}>
 			<b>{contactTitle}: </b> {contactValue}
 		</div>
-	);
+	)
 }
 
-export default ProfileInfo;
+export default ProfileInfo

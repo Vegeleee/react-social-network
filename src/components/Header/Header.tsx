@@ -1,8 +1,15 @@
-import React from 'react';
-import classes from './Header.module.scss';
-import { NavLink } from 'react-router-dom';
+import React from 'react'
+import classes from './Header.module.scss'
+import { NavLink } from 'react-router-dom'
 
-const Header = ({isAuth, login, logout}) => {
+
+type PropsType = {
+	isAuth: boolean
+	login: string | null
+	logout: () => void
+}
+
+const Header: React.FC<PropsType> = ({isAuth, login, logout}) => {
 	return (
 		<header className={classes.header}>
 			<NavLink to={'/profile'}>
@@ -19,7 +26,7 @@ const Header = ({isAuth, login, logout}) => {
 				}
 			</div>
 		</header>
-	);
-};
+	)
+}
 
 export default Header;
