@@ -1,3 +1,4 @@
+import { ProfileType } from './../types/types';
 import Axios from "axios";
 
 const instance = Axios.create({
@@ -8,20 +9,53 @@ const instance = Axios.create({
 	}
 });
 
+export enum ResultCodes {
+	Success = 0,
+	Error = 1
+}
+
+export enum ResultCodeForCaptcha {
+	CaptchaIsRequired = 10
+}
+
+type MeResponseType = {
+	data: {
+		id: number
+		email: string
+		login: string
+	}
+	resultCode: ResultCodes
+	messages: Array<string>
+}
+
+type LoginResponseType = {
+	data: {
+		userId: number
+	}
+	resultCode: ResultCodes | ResultCodeForCaptcha
+	messages: Array<string>
+}
+
+type LogoutResponseType = {
+	data: {}
+	resultCode: ResultCodes
+	messages: Array<string>
+}
+
 export const authAPI = {
 
 	me() {
-		return instance.get('auth/me')
+		return instance.get<MeResponseType>('auth/me')
 			.then(response => response.data)
 	},
 
-	login(email, password, rememberMe = false, captcha = null) {
-		return instance.post('auth/login', {email, password, rememberMe, captcha})
+	login(email: string, password: string, rememberMe = false, captcha: null | string = null) {
+		return instance.post<LoginResponseType>('auth/login', {email, password, rememberMe, captcha})
 			.then(response => response.data)
 	},
 
 	logout() {
-		return instance.delete('auth/login')
+		return instance.delete<LogoutResponseType>('auth/login')
 			.then(response => response.data)
 	}
 };
@@ -33,12 +67,12 @@ export const usersAPI = {
 			.then(response => response.data)
 	},
 
-	follow(userId) {
+	follow(userId: number) {
 		return instance.post(`follow/${userId}`)
 			.then(response => response.data)
 	},
 
-	unfollow(userId) {
+	unfollow(userId: number) {
 		return instance.delete(`follow/${userId}`)
 			.then(response => response.data)
 	}	
@@ -46,22 +80,22 @@ export const usersAPI = {
 
 export const profileAPI = {
 
-	async getProfile(userId) {
+	async getProfile(userId: number) {
 		return instance.get(`profile/${userId}`)
 			.then(response => response.data)
 	},
 
-	getStatus(userId) {
+	getStatus(userId: number) {
 		return instance.get(`profile/status/${userId}`)
 			.then(response => response.data);
 	},
 
-	updateStatus(status) {
+	updateStatus(status: string) {
 		return instance.put(`profile/status/`, {status})
 			.then(response => response.data);
 	},
 
-	savePhoto(photo) {
+	savePhoto(photo: any) {
 		const formData = new FormData();
 		formData.append('image', photo);
 
@@ -73,7 +107,7 @@ export const profileAPI = {
 			.then(response => response.data);
 	},
 
-	saveProfile(profileData) {
+	saveProfile(profileData: ProfileType) {
 		return instance.put(`profile`, profileData)
 			.then(response => response.data);
 	}
