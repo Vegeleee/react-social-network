@@ -1,5 +1,5 @@
 import { AppStateType } from './store';
-import { usersAPI } from "../api/api"
+import { usersAPI, ResultCodes } from "../api/api"
 import { updateObjectInArray } from "../utils/objectHelpers"
 import { UserType } from "../types/types"
 import { Dispatch } from 'redux'
@@ -180,7 +180,7 @@ const _followUnfollowFlow = async (dispatch: DispatchType,
 	dispatch(toggleFollowingProgress(true, userId))
 
 	const data = await apiMethod(userId)
-	if (data.resultCode === 0) {
+	if (data.resultCode === ResultCodes.Success) {
 		dispatch(actionCreator(userId))
 	}
 	dispatch(toggleFollowingProgress(false, userId))

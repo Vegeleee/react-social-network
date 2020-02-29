@@ -1,4 +1,4 @@
-import { ProfileType } from './../types/types';
+import { ProfileType, UserType } from './../types/types';
 import Axios from "axios";
 
 const instance = Axios.create({
@@ -60,38 +60,62 @@ export const authAPI = {
 	}
 };
 
+type GetUsersResponseType = {
+	items: Array<UserType>
+	totalCount: number
+	error: null | string
+}
+
+type FollowUnfollowResponseType = {
+	resultCode: ResultCodes
+	messages: Array<string>
+	data: {}
+}
+
 export const usersAPI = {
 
 	getUsers(currentPage = 1, pageSize = 10) {
-		return instance.get(`users?page=${currentPage}&count=${pageSize}`)
+		return instance.get<GetUsersResponseType>(`users?page=${currentPage}&count=${pageSize}`)
 			.then(response => response.data)
 	},
 
 	follow(userId: number) {
-		return instance.post(`follow/${userId}`)
+		return instance.post<FollowUnfollowResponseType>(`follow/${userId}`)
 			.then(response => response.data)
 	},
 
 	unfollow(userId: number) {
-		return instance.delete(`follow/${userId}`)
+		return instance.delete<FollowUnfollowResponseType>(`follow/${userId}`)
 			.then(response => response.data)
 	}	
 };
 
+type UpdateStatusResponseType = {
+	resultCode: ResultCodes
+	messages: Array<string>
+	data: {}
+}
+
+type SaveProfileResponseType = {
+	resultCode: ResultCodes
+	messages: Array<string>
+	data: {}
+}
+
 export const profileAPI = {
 
 	async getProfile(userId: number) {
-		return instance.get(`profile/${userId}`)
+		return instance.get<ProfileType>(`profile/${userId}`)
 			.then(response => response.data)
 	},
 
 	getStatus(userId: number) {
-		return instance.get(`profile/status/${userId}`)
+		return instance.get<string>(`profile/status/${userId}`)
 			.then(response => response.data);
 	},
 
 	updateStatus(status: string) {
-		return instance.put(`profile/status/`, {status})
+		return instance.put<UpdateStatusResponseType>(`profile/status/`, {status})
 			.then(response => response.data);
 	},
 
@@ -108,7 +132,7 @@ export const profileAPI = {
 	},
 
 	saveProfile(profileData: ProfileType) {
-		return instance.put(`profile`, profileData)
+		return instance.put<SaveProfileResponseType>(`profile`, profileData)
 			.then(response => response.data);
 	}
 };
