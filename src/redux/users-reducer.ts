@@ -1,5 +1,6 @@
+import { usersAPI } from './../api/users-api'
 import { AppStateType, InferActionTypes } from './store'
-import { usersAPI, ResultCodes } from '../api/api'
+import { ResultCodes } from '../api/api'
 import { updateObjectInArray } from '../utils/objectHelpers'
 import { UserType } from '../types/types'
 import { Dispatch } from 'redux'
