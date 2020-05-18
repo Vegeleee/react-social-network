@@ -1,4 +1,4 @@
-const SEND_MESSAGE = 'dialogs/SEND-MESSAGE'
+import { InferActionTypes } from './store'
 
 type DialogType = {
 	id: number
@@ -12,51 +12,52 @@ type MessageType = {
 
 const initialState = {
 	dialogs: [
-		{id: 1, name: 'Danil'},
-		{id: 2, name: 'Slava'},
-		{id: 3, name: 'Maria'},
-		{id: 4, name: 'Sasha'},
-		{id: 5, name: 'Aleksey'},
-		{id: 6, name: 'Vlad'}
+		{ id: 1, name: 'Danil' },
+		{ id: 2, name: 'Slava' },
+		{ id: 3, name: 'Maria' },
+		{ id: 4, name: 'Sasha' },
+		{ id: 5, name: 'Aleksey' },
+		{ id: 6, name: 'Vlad' },
 	] as Array<DialogType>,
 	messages: [
-		{id: 1, message: 'Hi'},
-		{id: 2, message: 'How are you'},
-		{id: 3, message: 'Yo!'},
-		{id: 4, message: 'Yo!'},
-		{id: 5, message: 'Yo!'}
-	] as Array<MessageType>
+		{ id: 1, message: 'Hi' },
+		{ id: 2, message: 'How are you' },
+		{ id: 3, message: 'Yo!' },
+		{ id: 4, message: 'Yo!' },
+		{ id: 5, message: 'Yo!' },
+	] as Array<MessageType>,
 }
 
-export type DialogsInitialStateType = typeof initialState
-
-const dialogsReducer = (state = initialState, action: SendMessageActionType): DialogsInitialStateType => {
+const dialogsReducer = (
+	state = initialState,
+	action: ActionsTypes
+): DialogsInitialStateType => {
 	switch (action.type) {
-		case SEND_MESSAGE:
+		case 'dialogs/SEND-MESSAGE':
 			const newMessage = {
 				id: state.messages.length + 1,
 				message: action.newMessage,
 			}
 
-			return ({
+			return {
 				...state,
 				messages: [...state.messages, newMessage],
-			})
+			}
 
 		default:
 			return state
 	}
 }
 
-type SendMessageActionType = {
-	type: typeof SEND_MESSAGE
-	newMessage: string
+export const actions = {
+	sendMessage: (newMessage: string) =>
+		({
+			type: 'dialogs/SEND-MESSAGE',
+			newMessage,
+		} as const),
 }
 
-export const sendMessage = (newMessage: string): SendMessageActionType =>
-	({
-		type: SEND_MESSAGE,
-		newMessage
-	})
-
 export default dialogsReducer
+
+export type DialogsInitialStateType = typeof initialState
+type ActionsTypes = InferActionTypes<typeof actions>
