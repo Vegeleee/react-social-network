@@ -1,15 +1,7 @@
 import React, { useState, useEffect, ChangeEvent } from 'react'
 import classes from './ProfileStatus.module.scss'
 
-
-type PropsType = {
-	status: string
-	isOwner: boolean
-	updateStatus: any
-}
-
-const ProfileStatus: React.FC<PropsType> = props => {
-
+const ProfileStatus: React.FC<PropsType> = (props) => {
 	const [editMode, setEditMode] = useState(false)
 	const [status, setStatus] = useState(props.status)
 
@@ -34,22 +26,27 @@ const ProfileStatus: React.FC<PropsType> = props => {
 
 	return (
 		<div>
-			{!editMode &&
+			{!editMode && (
 				<div>
-					<span className={classes.status}
-						onDoubleClick={activateEditMode}>
-						{props.status || "------"}
+					<span className={classes.status} onDoubleClick={activateEditMode}>
+						{props.status || '------'}
 					</span>
 				</div>
-			}
+			)}
 
-			{editMode &&
+			{editMode && (
 				<div>
 					<input autoFocus={true} onBlur={deactivateEditMode} onChange={onStatusChange} value={status} />
 				</div>
-			}
+			)}
 		</div>
 	)
 }
 
 export default ProfileStatus
+
+type PropsType = {
+	status: string
+	isOwner: boolean
+	updateStatus: (status: string) => void
+}

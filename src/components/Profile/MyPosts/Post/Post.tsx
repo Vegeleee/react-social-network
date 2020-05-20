@@ -2,18 +2,11 @@ import React from 'react'
 import classes from './Post.module.scss'
 import userPhoto from './../../../../assets/images/user.png'
 
-
-type PropsType = {
-	id: number
-	message: string
-	likesCount: number
-}
-
 const Post: React.FC<PropsType> = ({ message, likesCount }) => {
 	return (
 		<div className={classes.item}>
 			<div className={classes.wrapper}>
-				<img src={userPhoto} alt='User' />
+				<img src={userPhoto} alt="User" />
 				{message}
 			</div>
 			<div className={classes.likes}>
@@ -24,3 +17,9 @@ const Post: React.FC<PropsType> = ({ message, likesCount }) => {
 }
 
 export default Post
+
+type PropsType = {
+	id: number
+	message: string
+	likesCount: number
+}
