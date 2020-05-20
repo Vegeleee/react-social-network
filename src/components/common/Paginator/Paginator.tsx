@@ -2,22 +2,13 @@ import React, { useState } from 'react'
 import classes from './Paginator.module.scss'
 import cn from 'classnames'
 
-
-type PropsType = {
-	totalItemsCount: number
-	pageSize: number
-	currentPage: number
-	onPageChanged: (pageNumber: number) => void
-	portionSize?: number
-}
-
 const Paginator: React.FC<PropsType> = ({
 	totalItemsCount,
 	pageSize,
 	currentPage,
 	onPageChanged,
-	portionSize = 10 }) => {
-
+	portionSize = 10,
+}) => {
 	const pagesCount = Math.ceil(totalItemsCount / pageSize)
 
 	const pages: Array<number> = []
@@ -32,39 +23,53 @@ const Paginator: React.FC<PropsType> = ({
 
 	return (
 		<div className={classes.paginator}>
-			{portionNumber > 1 &&
+			{portionNumber > 1 && (
 				<button
-					onClick={() => { setPortionNumber(portionNumber - 1) }}
+					onClick={() => {
+						setPortionNumber(portionNumber - 1)
+					}}
 					className={classes.paginatorPrevButton}
 				>
 					Prev
-				</button>}
+				</button>
+			)}
 
-			{
-				pages
-					.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-					.map(p =>
-						<span
-							key={p}
-							className={cn(classes.paginatorPageNumber, {
-								[classes.paginatorSelectedPage]: currentPage === p
-							})}
-							onClick={() => { onPageChanged(p) }}
-						>
-							{p}
-						</span>)
-			}
+			{pages
+				.filter((p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+				.map((p) => (
+					<span
+						key={p}
+						className={cn(classes.paginatorPageNumber, {
+							[classes.paginatorSelectedPage]: currentPage === p,
+						})}
+						onClick={() => {
+							onPageChanged(p)
+						}}
+					>
+						{p}
+					</span>
+				))}
 
-			{portionCount > portionNumber &&
+			{portionCount > portionNumber && (
 				<button
-					onClick={() => { setPortionNumber(portionNumber + 1) }}
+					onClick={() => {
+						setPortionNumber(portionNumber + 1)
+					}}
 					className={classes.paginatorNextButton}
 				>
 					Next
-				</button>}
+				</button>
+			)}
 		</div>
 	)
 }
 
-
 export default Paginator
+
+type PropsType = {
+	totalItemsCount: number
+	pageSize: number
+	currentPage: number
+	onPageChanged: (pageNumber: number) => void
+	portionSize?: number
+}
