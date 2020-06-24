@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { follow, unfollow, requestUsers } from '../../redux/users-reducer'
 import Users from './Users'
-import Preloader from '../common/Preloader/Preloader'
 import withAuthRedirect from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
 import {
@@ -28,10 +27,6 @@ class UsersContainer extends React.Component<PropsType> {
 	}
 
 	render() {
-		if (this.props.isFetching) {
-			return <Preloader />
-		}
-
 		return (
 			<>
 				<Users
@@ -39,6 +34,7 @@ class UsersContainer extends React.Component<PropsType> {
 					pageSize={this.props.pageSize}
 					currentPage={this.props.currentPage}
 					users={this.props.users}
+					isFetching={this.props.isFetching}
 					follow={this.props.follow}
 					unfollow={this.props.unfollow}
 					onPageChanged={this.onPageChanged}
@@ -59,10 +55,11 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
 })
 
 export default compose<React.ComponentType>(
-	connect<MapStatePropsType, MapDispatchPropsType, null, AppStateType>(
-		mapStateToProps,
-		{ follow, unfollow, requestUsers }
-	),
+	connect<MapStatePropsType, MapDispatchPropsType, null, AppStateType>(mapStateToProps, {
+		follow,
+		unfollow,
+		requestUsers,
+	}),
 	withAuthRedirect
 )(UsersContainer)
 

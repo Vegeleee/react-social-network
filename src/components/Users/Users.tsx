@@ -3,12 +3,14 @@ import classes from './Users.module.scss'
 import Paginator from '../common/Paginator/Paginator'
 import User from './User'
 import { UserType } from '../../types/types'
+import Preloader from '../common/Preloader/Preloader'
 
 const Users: React.FC<PropsType> = ({
 	totalUsersCount,
 	pageSize,
 	currentPage,
 	users,
+	isFetching,
 	follow,
 	unfollow,
 	onPageChanged,
@@ -22,17 +24,15 @@ const Users: React.FC<PropsType> = ({
 				currentPage={currentPage}
 				onPageChanged={onPageChanged}
 			/>
-			<div className={classes.usersWrapper}>
-				{users.map((u) => (
-					<User
-						key={u.id}
-						user={u}
-						follow={follow}
-						unfollow={unfollow}
-						followingInProgress={followingInProgress}
-					/>
-				))}
-			</div>
+			{isFetching ? (
+				<Preloader />
+			) : (
+				<div className={classes.usersWrapper}>
+					{users.map((u) => (
+						<User key={u.id} user={u} follow={follow} unfollow={unfollow} followingInProgress={followingInProgress} />
+					))}
+				</div>
+			)}
 		</div>
 	)
 }
@@ -44,6 +44,7 @@ type PropsType = {
 	pageSize: number
 	currentPage: number
 	users: Array<UserType>
+	isFetching: boolean
 	follow: (userId: number) => void
 	unfollow: (userId: number) => void
 	onPageChanged: (pageNumber: number) => void
