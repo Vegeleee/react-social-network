@@ -12,10 +12,7 @@ const initialState = {
 	captchaUrl: null as string | null, // if null, then captcha url is not required
 }
 
-const authReducer = (
-	state = initialState,
-	action: ActionsTypes
-): InitialStateType => {
+const authReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
 		case 'auth/SET_USER_DATA':
 			return {
@@ -45,6 +42,7 @@ export const actions = {
 			type: 'auth/SET_USER_DATA',
 			payload: { userId, email, login, isAuth },
 		} as const),
+
 	getCaptchaUrlSuccess: (captchaUrl: string) =>
 		({
 			type: 'auth/GET_CAPTCHA_URL_SUCCESS',

@@ -1,3 +1,4 @@
+import { APIResponseType } from './../api/api'
 import { usersAPI } from './../api/users-api'
 import { InferActionTypes, BaseThunkType } from './store'
 import { ResultCodes } from '../api/api'
@@ -14,10 +15,7 @@ const initialState = {
 	followingInProgress: [] as Array<number>, // array of users ids
 }
 
-const usersReducer = (
-	state = initialState,
-	action: ActionsTypes
-): InitialStateType => {
+const usersReducer = (state = initialState, action: ActionsTypes): InitialState => {
 	switch (action.type) {
 		case 'users/FOLLOW':
 			return {
@@ -73,12 +71,9 @@ const usersReducer = (
 }
 
 export const actions = {
-	followSuccess: (userId: number) =>
-		({ type: 'users/FOLLOW', userId } as const),
-	unfollowSuccess: (userId: number) =>
-		({ type: 'users/UNFOLLOW', userId } as const),
-	setUsers: (users: Array<UserType>) =>
-		({ type: 'users/SET_USERS', users } as const),
+	followSuccess: (userId: number) => ({ type: 'users/FOLLOW', userId } as const),
+	unfollowSuccess: (userId: number) => ({ type: 'users/UNFOLLOW', userId } as const),
+	setUsers: (users: Array<UserType>) => ({ type: 'users/SET_USERS', users } as const),
 	setCurrentPage: (currentPage: number) =>
 		({ type: 'users/SET_CURRENT_PAGE', currentPage } as const),
 	setTotalUsersCount: (totalUsersCount: number) =>
@@ -89,10 +84,7 @@ export const actions = {
 		({ type: 'users/TOGGLE_FOLLOWING_PROGRESS', isFetching, userId } as const),
 }
 
-export const requestUsers = (
-	page: number,
-	pageSize: number
-): ThunkType => async (dispatch) => {
+export const requestUsers = (page: number, pageSize: number): ThunkType => async (dispatch) => {
 	dispatch(actions.toggleIsFetching(true))
 	dispatch(actions.setCurrentPage(page))
 
@@ -105,7 +97,7 @@ export const requestUsers = (
 const _followUnfollowFlow = async (
 	dispatch: Dispatch<ActionsTypes>,
 	userId: number,
-	apiMethod: any,
+	apiMethod: (userId: number) => Promise<APIResponseType>,
 	actionCreator: (userId: number) => ActionsTypes
 ) => {
 	dispatch(actions.toggleFollowingProgress(true, userId))
@@ -118,16 +110,11 @@ const _followUnfollowFlow = async (
 }
 
 export const follow = (userId: number): ThunkType => async (dispatch) => {
-	_followUnfollowFlow(
-		dispatch,
-		userId,
-		usersAPI.follow.bind(usersAPI),
-		actions.followSuccess
-	)
+	await _followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), actions.followSuccess)
 }
 
 export const unfollow = (userId: number): ThunkType => async (dispatch) => {
-	_followUnfollowFlow(
+	await _followUnfollowFlow(
 		dispatch,
 		userId,
 		usersAPI.unfollow.bind(usersAPI),
@@ -137,6 +124,6 @@ export const unfollow = (userId: number): ThunkType => async (dispatch) => {
 
 export default usersReducer
 
-export type InitialStateType = typeof initialState
+export type InitialState = typeof initialState
 type ActionsTypes = InferActionTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionsTypes>
