@@ -1,9 +1,14 @@
 import React from 'react'
-import classes from './Users.module.scss'
+
 import Paginator from '../common/Paginator/Paginator'
 import User from './User'
-import { UserType } from '../../types/types'
+import UsersSearchForm from './UsersSearchForm'
 import Preloader from '../common/Preloader/Preloader'
+
+import { UserType } from '../../types/types'
+
+import classes from './Users.module.scss'
+import { FilterType } from '../../redux/users-reducer'
 
 const Users: React.FC<PropsType> = ({
 	totalUsersCount,
@@ -14,10 +19,13 @@ const Users: React.FC<PropsType> = ({
 	follow,
 	unfollow,
 	onPageChanged,
+	onFilterChanged,
 	followingInProgress,
 }) => {
 	return (
 		<div className={classes.usersContainer}>
+			<UsersSearchForm onFilterChanged={onFilterChanged} />
+
 			<Paginator
 				totalItemsCount={totalUsersCount}
 				pageSize={pageSize}
@@ -29,7 +37,13 @@ const Users: React.FC<PropsType> = ({
 			) : (
 				<div className={classes.usersWrapper}>
 					{users.map((u) => (
-						<User key={u.id} user={u} follow={follow} unfollow={unfollow} followingInProgress={followingInProgress} />
+						<User
+							key={u.id}
+							user={u}
+							follow={follow}
+							unfollow={unfollow}
+							followingInProgress={followingInProgress}
+						/>
 					))}
 				</div>
 			)}
@@ -48,5 +62,6 @@ type PropsType = {
 	follow: (userId: number) => void
 	unfollow: (userId: number) => void
 	onPageChanged: (pageNumber: number) => void
+	onFilterChanged: (filter: FilterType) => void
 	followingInProgress: Array<number>
 }

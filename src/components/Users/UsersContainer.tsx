@@ -1,9 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { follow, unfollow, requestUsers } from '../../redux/users-reducer'
-import Users from './Users'
-import withAuthRedirect from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
+
+import Users from './Users'
+
+import withAuthRedirect from '../../hoc/withAuthRedirect'
+
+import { follow, unfollow, requestUsers, FilterType } from '../../redux/users-reducer'
 import {
 	getUsers,
 	getPageSize,
@@ -11,19 +14,27 @@ import {
 	getCurrentPage,
 	getIsFetching,
 	getFollowingInProgress,
+	getFilter,
 } from '../../redux/users-selectors'
+
 import { UserType } from '../../types/types'
 import { AppStateType } from '../../redux/store'
 
 class UsersContainer extends React.Component<PropsType> {
 	componentDidMount() {
-		const { requestUsers, currentPage, pageSize } = this.props
-		requestUsers(currentPage, pageSize)
+		const { requestUsers, currentPage, pageSize, filter } = this.props
+		requestUsers(currentPage, pageSize, filter)
 	}
 
 	onPageChanged = (pageNumber: number) => {
+		const { requestUsers, pageSize, filter } = this.props
+		requestUsers(pageNumber, pageSize, filter)
+	}
+
+	onFilterChanged = (filter: FilterType) => {
 		const { requestUsers, pageSize } = this.props
-		requestUsers(pageNumber, pageSize)
+
+		requestUsers(1, pageSize, filter)
 	}
 
 	render() {
@@ -38,6 +49,7 @@ class UsersContainer extends React.Component<PropsType> {
 					follow={this.props.follow}
 					unfollow={this.props.unfollow}
 					onPageChanged={this.onPageChanged}
+					onFilterChanged={this.onFilterChanged}
 					followingInProgress={this.props.followingInProgress}
 				/>
 			</>
@@ -52,6 +64,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
 	currentPage: getCurrentPage(state),
 	isFetching: getIsFetching(state),
 	followingInProgress: getFollowingInProgress(state),
+	filter: getFilter(state),
 })
 
 export default compose<React.ComponentType>(
@@ -70,9 +83,10 @@ type MapStatePropsType = {
 	isFetching: boolean
 	users: Array<UserType>
 	followingInProgress: Array<number>
+	filter: FilterType
 }
 type MapDispatchPropsType = {
-	requestUsers: (currentPage: number, pageSize: number) => void
+	requestUsers: (currentPage: number, pageSize: number, filter: FilterType) => void
 	follow: (userId: number) => void
 	unfollow: (userId: number) => void
 }

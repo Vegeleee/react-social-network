@@ -13,6 +13,10 @@ const initialState = {
 	currentPage: 1,
 	isFetching: false,
 	followingInProgress: [] as Array<number>, // array of users ids
+	filter: {
+		term: '',
+		friend: null as null | boolean,
+	},
 }
 
 const usersReducer = (state = initialState, action: ActionsTypes): InitialState => {
@@ -43,6 +47,12 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialState 
 			return {
 				...state,
 				currentPage: action.currentPage,
+			}
+
+		case 'users/SET_FILTER':
+			return {
+				...state,
+				filter: action.payload,
 			}
 
 		case 'users/SET_TOTAL_USERS_COUNT':
@@ -76,6 +86,7 @@ export const actions = {
 	setUsers: (users: Array<UserType>) => ({ type: 'users/SET_USERS', users } as const),
 	setCurrentPage: (currentPage: number) =>
 		({ type: 'users/SET_CURRENT_PAGE', currentPage } as const),
+	setFilter: (filter: FilterType) => ({ type: 'users/SET_FILTER', payload: filter } as const),
 	setTotalUsersCount: (totalUsersCount: number) =>
 		({ type: 'users/SET_TOTAL_USERS_COUNT', totalUsersCount } as const),
 	toggleIsFetching: (isFetching: boolean) =>
@@ -84,11 +95,16 @@ export const actions = {
 		({ type: 'users/TOGGLE_FOLLOWING_PROGRESS', isFetching, userId } as const),
 }
 
-export const requestUsers = (page: number, pageSize: number): ThunkType => async (dispatch) => {
+export const requestUsers = (
+	page: number,
+	pageSize: number,
+	filter: FilterType
+): ThunkType => async (dispatch) => {
 	dispatch(actions.toggleIsFetching(true))
 	dispatch(actions.setCurrentPage(page))
+	dispatch(actions.setFilter(filter))
 
-	const data = await usersAPI.getUsers(page, pageSize)
+	const data = await usersAPI.getUsers(page, pageSize, filter.term, filter.friend)
 	dispatch(actions.toggleIsFetching(false))
 	dispatch(actions.setUsers(data.items))
 	dispatch(actions.setTotalUsersCount(data.totalCount))
@@ -125,5 +141,6 @@ export const unfollow = (userId: number): ThunkType => async (dispatch) => {
 export default usersReducer
 
 export type InitialState = typeof initialState
+export type FilterType = typeof initialState.filter
 type ActionsTypes = InferActionTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionsTypes>
