@@ -1,30 +1,27 @@
 import React from 'react'
-import './App.scss'
+import { HashRouter, Route, withRouter, Switch, Redirect } from 'react-router-dom'
+import { Provider, connect } from 'react-redux'
+import { compose } from 'redux'
+
 import Navbar from './components/Navbar/Navbar'
 import News from './components/News/News'
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
-import {
-	HashRouter,
-	Route,
-	withRouter,
-	Switch,
-	Redirect,
-} from 'react-router-dom'
-import UsersContainer from './components/Users/UsersContainer'
+import { Users } from './components/Users/Users'
 import ProfileContainer from './components/Profile/ProfileContainer'
 import HeaderContainer from './components/Header/HeaderContainer'
 import Login from './components/Login/Login'
-import { Provider, connect } from 'react-redux'
-import { initializeApp } from './redux/app-reducer'
-import { compose } from 'redux'
 import Preloader from './components/common/Preloader/Preloader'
+
+import { initializeApp } from './redux/app-reducer'
+
 import store, { AppStateType } from './redux/store'
+
 import withSuspense from './hoc/withSuspense'
 
-const DialogsContainer = React.lazy(() =>
-	import('./components/Dialogs/DialogsContainer')
-)
+import './App.scss'
+
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const SuspendedDialogs = withSuspense(DialogsContainer)
 
 class App extends React.Component<MapPropsType & DispatchPropsType> {
@@ -39,10 +36,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener(
-			'unhandledrejection',
-			this.catchAllUnhandledErrors
-		)
+		window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
 	}
 
 	render() {
@@ -78,14 +72,11 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
 							<Switch>
 								<Redirect exact from="/" to="/profile" />
 
-								<Route
-									path="/profile/:userId?"
-									render={() => <ProfileContainer />}
-								/>
+								<Route path="/profile/:userId?" render={() => <ProfileContainer />} />
 
 								<Route path="/dialogs" render={() => <SuspendedDialogs />} />
 
-								<Route path="/users" render={() => <UsersContainer />} />
+								<Route path="/users" render={() => <Users />} />
 
 								<Route path="/news" component={News} />
 								<Route path="/music" component={Music} />

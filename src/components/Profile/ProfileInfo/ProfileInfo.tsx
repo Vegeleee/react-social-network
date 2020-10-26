@@ -1,13 +1,25 @@
 import React, { useState, ChangeEvent } from 'react'
-import classes from './ProfileInfo.module.scss'
+import { useDispatch, useSelector } from 'react-redux'
+
 import Preloader from '../../common/Preloader/Preloader'
-import ProfileStatus from './ProfileStatus'
+import { ProfileStatus } from './ProfileStatus'
 import userPhoto from '../../../assets/images/user.png'
 import ProfileDataForm from './ProfileDataForm'
-import { ProfileType, ContactsType } from '../../../types/types'
 
-const ProfileInfo: React.FC<PropsType> = ({ profile, status, updateStatus, isOwner, savePhoto, saveProfile }) => {
+import { savePhoto } from '../../../redux/profile-reducer'
+
+import { ProfileType, ContactsType } from '../../../types/types'
+import { AppStateType } from '../../../redux/store'
+
+import classes from './ProfileInfo.module.scss'
+
+export const ProfileInfo: React.FC<PropsType> = ({ isOwner, saveProfile }) => {
 	const [editMode, setEditMode] = useState(false)
+
+	const profile = useSelector((state: AppStateType) => state.profilePage.profile)
+	const status = useSelector((state: AppStateType) => state.profilePage.status)
+
+	const dispatch = useDispatch()
 
 	if (!profile) {
 		return (
@@ -19,7 +31,7 @@ const ProfileInfo: React.FC<PropsType> = ({ profile, status, updateStatus, isOwn
 
 	const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files?.length) {
-			savePhoto(e.target.files[0])
+			dispatch(savePhoto(e.target.files[0]))
 		}
 	}
 
@@ -43,7 +55,7 @@ const ProfileInfo: React.FC<PropsType> = ({ profile, status, updateStatus, isOwn
 				<div className={classes.descBlockRightCol}>
 					<div className={classes.head}>
 						<h1 className={classes.name}>{profile.fullName}</h1>
-						<ProfileStatus status={status} updateStatus={updateStatus} isOwner={isOwner} />
+						<ProfileStatus status={status} isOwner={isOwner} />
 					</div>
 
 					{editMode ? (
@@ -79,7 +91,13 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({ profile, isOwner, toEditM
 			<div className={classes.profileDataItem}>
 				<b>Contacts: </b>
 				{Object.keys(profile.contacts).map((key) => {
-					return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]} />
+					return (
+						<Contact
+							key={key}
+							contactTitle={key}
+							contactValue={profile.contacts[key as keyof ContactsType]}
+						/>
+					)
 				})}
 			</div>
 			{isOwner && (
@@ -99,14 +117,8 @@ const Contact: React.FC<ContactPropsType> = ({ contactTitle, contactValue }) => 
 	)
 }
 
-export default ProfileInfo
-
 type PropsType = {
-	profile: ProfileType | null
-	status: string
-	updateStatus: (status: string) => void
 	isOwner: boolean
-	savePhoto: (file: File) => void
 	saveProfile: (profileData: ProfileType) => Promise<any>
 }
 type ProfileDataPropsType = {

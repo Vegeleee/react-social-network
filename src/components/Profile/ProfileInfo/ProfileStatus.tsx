@@ -1,9 +1,15 @@
 import React, { useState, useEffect, ChangeEvent } from 'react'
+import { useDispatch } from 'react-redux'
+
+import { updateStatus } from '../../../redux/profile-reducer'
+
 import classes from './ProfileStatus.module.scss'
 
-const ProfileStatus: React.FC<PropsType> = (props) => {
+export const ProfileStatus: React.FC<PropsType> = (props) => {
 	const [editMode, setEditMode] = useState(false)
 	const [status, setStatus] = useState(props.status)
+
+	const dispatch = useDispatch()
 
 	useEffect(() => {
 		setStatus(props.status)
@@ -17,7 +23,7 @@ const ProfileStatus: React.FC<PropsType> = (props) => {
 
 	const deactivateEditMode = () => {
 		setEditMode(false)
-		props.updateStatus(status)
+		dispatch(updateStatus(status))
 	}
 
 	const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -36,17 +42,19 @@ const ProfileStatus: React.FC<PropsType> = (props) => {
 
 			{editMode && (
 				<div>
-					<input autoFocus={true} onBlur={deactivateEditMode} onChange={onStatusChange} value={status} />
+					<input
+						autoFocus={true}
+						onBlur={deactivateEditMode}
+						onChange={onStatusChange}
+						value={status}
+					/>
 				</div>
 			)}
 		</div>
 	)
 }
 
-export default ProfileStatus
-
 type PropsType = {
 	status: string
 	isOwner: boolean
-	updateStatus: (status: string) => void
 }

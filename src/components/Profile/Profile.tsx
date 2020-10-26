@@ -1,31 +1,54 @@
-import React from 'react'
-import ProfileInfo from './ProfileInfo/ProfileInfo'
-import MyPostsContainer from './MyPosts/MyPostsContainer'
-import { ProfileType } from '../../types/types'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect, useRouteMatch } from 'react-router-dom'
 
-const Profile: React.FC<PropsType> = ({ profile, status, updateStatus, isOwner, savePhoto, saveProfile }) => {
-	return (
+import { ProfileInfo } from './ProfileInfo/ProfileInfo'
+import MyPostsContainer from './MyPosts/MyPostsContainer'
+
+import { getProfile, getStatus } from '../../redux/profile-reducer'
+
+import { ProfileType } from '../../types/types'
+import { AppStateType } from '../../redux/store'
+
+type PathParamsType = {
+	userId: string
+}
+
+type MatchType = {
+	params: PathParamsType
+}
+
+export const Profile: React.FC<PropsType> = ({ saveProfile }) => {
+	const match: MatchType = useRouteMatch()
+	const dispatch = useDispatch()
+
+	const authorizedUserId = useSelector((state: AppStateType) => state.auth.userId)
+	const isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
+
+	const isOwner = !match.params.userId
+	const userId = +match.params.userId || authorizedUserId
+
+	useEffect(() => {
+		refreshProfile(userId)
+	}, [userId])
+
+	const refreshProfile = (userId: number | null) => {
+		dispatch(getProfile(userId as number))
+		dispatch(getStatus(userId as number))
+	}
+
+	if (!isAuth) return <Redirect to="/login" />
+
+	return isAuth ? (
 		<section>
-			<ProfileInfo
-				profile={profile}
-				status={status}
-				updateStatus={updateStatus}
-				isOwner={isOwner}
-				savePhoto={savePhoto}
-				saveProfile={saveProfile}
-			/>
+			<ProfileInfo isOwner={isOwner} saveProfile={saveProfile} />
 			<MyPostsContainer />
 		</section>
+	) : (
+		<Redirect to="/login" />
 	)
 }
 
-export default Profile
-
 type PropsType = {
-	profile: ProfileType | null
-	status: string
-	isOwner: boolean
-	updateStatus: (status: string) => void
-	savePhoto: (file: File) => void
 	saveProfile: (profile: ProfileType) => Promise<any>
 }
